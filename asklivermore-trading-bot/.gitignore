@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.eggs/
+*.egg-info/
+build/
+dist/
+
+# Env / secrets
+.env
+.env.*
+!.env.example
+
+# Data (mounted volumes — never commit live trading data)
+data/journal/*.jsonl
+data/journal/proposed_changes/*.json
+data/csv_imports/*.csv
+data/graphify/
+data/KILL
+data/hwm.txt
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Tooling
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+htmlcov/
+.coverage
+
+# External submodules
+external/*/
+
+# OS
+.DS_Store

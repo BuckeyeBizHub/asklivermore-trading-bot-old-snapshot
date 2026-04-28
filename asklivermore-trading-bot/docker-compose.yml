@@ -1,0 +1,48 @@
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: asklivermore-trading-bot:latest
+    container_name: asklivermore-bot
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      TICK_SECONDS: "60"
+    volumes:
+      - ./data:/app/data
+      - ./external:/app/external:ro
+      - ./knowledge:/app/knowledge
+    depends_on:
+      - graphify
+    networks: [bot-net]
+
+  graphify:
+    image: safishamsi/graphify:latest
+    container_name: graphify
+    restart: unless-stopped
+    environment:
+      GRAPHIFY_PORT: "7000"
+      GRAPHIFY_DATA_DIR: /data
+    volumes:
+      - ./data/graphify:/data
+    ports:
+      - "127.0.0.1:7000:7000"
+    networks: [bot-net]
+
+  # Optional: IB Gateway for live IBKR trading. Uncomment to use.
+  # ibgateway:
+  #   image: gnzsnz/ib-gateway:stable
+  #   container_name: ibgateway
+  #   restart: unless-stopped
+  #   environment:
+  #     TWS_USERID: ${TWS_USERID}
+  #     TWS_PASSWORD: ${TWS_PASSWORD}
+  #     TRADING_MODE: paper
+  #   ports:
+  #     - "127.0.0.1:7497:7497"
+  #   networks: [bot-net]
+
+networks:
+  bot-net:
+    driver: bridge

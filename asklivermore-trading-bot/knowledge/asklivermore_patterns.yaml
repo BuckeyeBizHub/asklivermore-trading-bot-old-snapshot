@@ -1,0 +1,61 @@
+# knowledge/asklivermore_patterns.yaml
+# Canonical pattern library for the AskLivermore methodology.
+# Edited by humans; the bot reads but never auto-modifies this file.
+# Self-eval proposals are written to data/journal/proposed_changes/ for review.
+
+bull_flag:
+  description: >
+    A sharp impulsive advance ("flagpole") followed by a tight, low-volume
+    consolidation that drifts mildly lower or sideways. Breakout above the
+    flag's upper boundary on volume = entry trigger.
+  required:
+    - prior_advance_pct: ">=15 in <=10 sessions"
+    - flag_duration_sessions: "3..15"
+    - volume_in_flag: "declining vs flagpole"
+    - breakout_volume: ">= 1.5x 30d avg"
+  invalidation: "Close below flag low"
+
+vcp:
+  description: >
+    Mark Minervini's Volatility Contraction Pattern: a series of 2-4 successively
+    tighter pullbacks, each on lower volume, terminating in a tight pivot.
+  required:
+    - contractions: ">=2"
+    - each_contraction_smaller_than_prior: true
+    - final_pivot_width_pct: "<=5"
+    - dry_volume_at_pivot: true
+  invalidation: "Break of pivot low"
+
+golden_pocket:
+  description: >
+    Price reacts at the 0.618-0.65 Fibonacci retracement of the prior up-leg.
+    Used as a high-probability long-side reaction zone.
+  required:
+    - retracement_zone: "0.618..0.65"
+    - reaction_signal: "bullish reversal candle or volume spike"
+  invalidation: "Sustained close below 0.786"
+
+livermore_5_step:
+  description: >
+    Jesse Livermore's pivotal-point checklist:
+      1. Identify a clear pivot (prior high or breakout level).
+      2. Trade only in the direction of the line of least resistance.
+      3. Confirm with volume on the breakout.
+      4. Verify no overhead supply (recent congestion overhead).
+      5. Confirm market tone supports the move (indices in trend, not fighting).
+  required:
+    pivot_clear: true
+    line_of_least_resistance_aligned: true
+    volume_confirms: true
+    no_overhead_supply: true
+    market_tone_supports: true
+  invalidation: "Pivot fails to hold for 2 consecutive sessions"
+
+confluence_weights:
+  bull_flag_or_vcp: 1
+  golden_pocket: 1
+  rvol_ge_2: 1
+  rs_ge_80: 1
+  livermore_5_step: 1
+
+# Components are binary (0/1). Total possible = 5. Min entry threshold = 4 (CLAUDE.md §3).

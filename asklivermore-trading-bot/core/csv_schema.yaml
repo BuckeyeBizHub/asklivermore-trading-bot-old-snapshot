@@ -1,0 +1,46 @@
+# core/csv_schema.yaml
+# Maps the AskLivermore dashboard CSV columns to the bot's internal Candidate fields.
+# Adjust if AskLivermore changes their export. The keys below are the CANONICAL field
+# names; the values are lists of acceptable column headers (case-insensitive, first match wins).
+
+ticker:
+  - Ticker
+  - Symbol
+  - symbol
+  - SYM
+
+last_price:
+  - Last
+  - Price
+  - LastPrice
+  - Close
+
+rvol:
+  - RVOL
+  - RelVol
+  - Relative Volume
+  - rvol_30d
+
+rs_rating:
+  - RS
+  - RS Rating
+  - RelativeStrength
+  - rs_score
+
+# Optional columns — used as enrichment hints if present.
+pattern_hint:
+  - Pattern
+  - Setup
+  - SetupType
+
+note:
+  - Note
+  - Notes
+  - Comment
+
+# Date fields tried in order; the first that parses wins.
+captured_at:
+  - Date
+  - Timestamp
+  - ScanTime
+  - As Of

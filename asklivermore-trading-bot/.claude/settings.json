@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json.schemastore.org/claude-settings",
+  "skills": {
+    "directory": ".claude/skills"
+  },
+  "mcpServers": {
+    "graphify": {
+      "command": "node",
+      "args": ["./external/graphify/dist/mcp.js"],
+      "env": {
+        "GRAPHIFY_NAMESPACE": "asklivermore"
+      }
+    },
+    "social-media-skills": {
+      "command": "python",
+      "args": ["-m", "social_media_skills.mcp"],
+      "env": {}
+    },
+    "claude-peers": {
+      "command": "node",
+      "args": ["./external/claude-peers/bin/server.js"],
+      "env": {
+        "PEER_TOPIC": "asklivermore-trading"
+      }
+    }
+  },
+  "permissions": {
+    "allow": [
+      "Read(./**)",
+      "Write(./agents/**)",
+      "Write(./core/**)",
+      "Write(./knowledge/**)",
+      "Write(./tests/**)",
+      "Write(./data/journal/proposed_changes/**)"
+    ],
+    "deny": [
+      "Write(./.env)",
+      "Write(./data/journal/*.jsonl)",
+      "Write(./data/KILL)"
+    ]
+  }
+}
